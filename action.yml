@@ -1,0 +1,19 @@
+name: 1password-load-secrets-action
+description: Load secrets from 1Password
+author: KamaranL
+branding:
+  icon: lock
+  color: blue
+
+inputs:
+  export-env:
+    description: Export secrets as environment variables
+    default: 'true'
+  unset-previous:
+    description: Unset previously loaded secrets stored in environment variables
+    default: 'true'
+
+runs:
+  using: node20
+  main: dist
+

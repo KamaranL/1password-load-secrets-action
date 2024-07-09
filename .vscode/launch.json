@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run Debug",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["ts-node", "-T", "${workspaceFolder}/src/index.ts"],
+      "skipFiles": ["<node_internals>/**"],
+      "envFile": "${workspaceFolder}/debug.env"
+    }
+  ]
+}
