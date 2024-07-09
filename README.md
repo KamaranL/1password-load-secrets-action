@@ -6,7 +6,7 @@ An improved-upon implementation of [Load secrets from 1Password](https://github.
 
 ## Features
 
-- Cached install of 1Password CLI
+- Persistent install of 1Password CLI
 - <u>**Windows**</u> runner support
 
 ## Usage

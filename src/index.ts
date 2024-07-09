@@ -4,7 +4,7 @@
 
 import os from 'node:os'
 import * as core from '@actions/core'
-import { downloadTool, extractZip, cacheDir } from '@actions/tool-cache'
+import { downloadTool, extractZip } from '@actions/tool-cache'
 import { validateCli, read } from '@1password/op-js'
 
 const exportEnv = core.getBooleanInput('export-env')
@@ -95,10 +95,9 @@ const installCli = async (): Promise<void> => {
 
       core.info(`Extracting ${op}`)
       const opPath = await extractZip(op)
-      const opCache = await cacheDir(opPath, 'op', version)
 
-      core.info(`Adding ${opCache} to PATH`)
-      core.addPath(opCache)
+      core.info(`Adding "op" to PATH`)
+      core.addPath(opPath)
     })
 }
 
