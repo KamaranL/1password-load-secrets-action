@@ -1,5 +1,5 @@
-name: 1password-load-secrets-action
-description: Load secrets from 1Password
+name: 1Password Load Secrets Action
+description: Loads secrets into your GitHub runner from 1Password
 author: KamaranL
 branding:
   icon: lock

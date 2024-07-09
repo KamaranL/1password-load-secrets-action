@@ -4,7 +4,7 @@
 
 import os from 'node:os'
 import * as core from '@actions/core'
-import { downloadTool, extractZip } from '@actions/tool-cache'
+import { downloadTool, extractZip, cacheDir } from '@actions/tool-cache'
 import { validateCli, read } from '@1password/op-js'
 
 const exportEnv = core.getBooleanInput('export-env')
@@ -48,7 +48,7 @@ const validateAuth = (): void => {
   )
 }
 
-const generateURL = async (): Promise<string> => {
+const generateURL = async (version: string): Promise<string> => {
   let arch: string = os.machine()
   switch (arch) {
     case 'x86_64':
@@ -71,14 +71,6 @@ const generateURL = async (): Promise<string> => {
       `Sorry, your operating system "${platform}" is unsupported`
     )
 
-  let version = (
-    await (
-      await fetch(
-        'https://app-updates.agilebits.com/check/1/0/CLI2/en/2.0.0/N'
-      )
-    ).json()
-  ).version
-
   return `https://cache.agilebits.com/dist/1P/op2/pkg/v${version}/op_${platform}_${arch}_v${version}.zip`
 }
 
@@ -86,17 +78,27 @@ const installCli = async (): Promise<void> => {
   await validateCli()
     .then(async () => core.debug('"op" already installed'))
     .catch(async () => {
+      core.info('Getting latest version')
+      let version = (
+        await (
+          await fetch(
+            'https://app-updates.agilebits.com/check/1/0/CLI2/en/2.0.0/N'
+          )
+        ).json()
+      ).version
+
       core.info('"op" not found, installing...')
-      const url = await generateURL()
+      const url = await generateURL(version)
 
       core.info(`Downloading "${url}"`)
       const op = await downloadTool(url)
 
-      core.debug(`Extracting ${op}`)
+      core.info(`Extracting ${op}`)
       const opPath = await extractZip(op)
+      const opCache = await cacheDir(opPath, 'op', version)
 
-      core.debug(`Adding ${opPath} to PATH`)
-      core.addPath(opPath)
+      core.info(`Adding ${opCache} to PATH`)
+      core.addPath(opCache)
     })
 }
 
