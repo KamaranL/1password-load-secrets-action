@@ -126,7 +126,7 @@ const loadSecrets = async (): Promise<void> => {
 
 ;(async () => {
   try {
-    if (unsetPrevious) unloadSecrets
+    if (unsetPrevious) unloadSecrets()
 
     validateAuth()
 
