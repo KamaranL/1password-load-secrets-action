@@ -11,7 +11,7 @@ inputs:
     default: 'true'
   unset-previous:
     description: Unset previously loaded secrets stored in environment variables
-    default: 'true'
+    default: 'false'
 
 runs:
   using: node20
