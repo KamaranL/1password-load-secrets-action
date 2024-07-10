@@ -18,10 +18,10 @@ const env = {
 }
 
 const unloadSecrets = (): void => {
-  core.info('Beginning unload...')
+  core.info('Initiating unload...')
   if (process.env[env.managedVariables]) {
     process.env[env.managedVariables]?.split(',').forEach(e => {
-      core.info(`Unloading ${e}`)
+      core.info(`Unloading "${e}"`)
       core.exportVariable(e, undefined)
     })
   }
@@ -33,7 +33,7 @@ const validateAuth = (): void => {
 
   if (!connect && !serviceAccountToken)
     throw new Error(
-      `Either ${env.serviceAccountToken} or both ${env.connectHost} & ${env.connectToken} must be present in the environment`
+      `Either ${env.serviceAccountToken} or both ${env.connectHost} & ${env.connectToken} must be present in the environment.`
     )
 
   if (connect && serviceAccountToken)
@@ -43,7 +43,7 @@ const validateAuth = (): void => {
 
   core.info(
     `Successfully authenticated with ${
-      connect ? 'Connect' : 'Service account'
+      connect ? 'CONNECT' : 'SERVICE ACCOUNT'
     }.`
   )
 }
@@ -63,12 +63,12 @@ const generateURL = async (version: string): Promise<string> => {
 
   if (!['386', 'amd64', 'arm', 'arm64'].includes(arch))
     throw new Error(
-      `Sorry, your operating system's architecture "${arch}" is unsupported`
+      `Sorry, your operating system's architecture "${arch}" is unsupported.`
     )
 
   if (!['darwin', 'freebsd', 'linux', 'openbsd', 'windows'].includes(platform))
     throw new Error(
-      `Sorry, your operating system "${platform}" is unsupported`
+      `Sorry, your operating system "${platform}" is unsupported.`
     )
 
   return `https://cache.agilebits.com/dist/1P/op2/pkg/v${version}/op_${platform}_${arch}_v${version}.zip`
@@ -78,7 +78,6 @@ const installCli = async (): Promise<void> => {
   await validateCli()
     .then(async () => core.debug('"op" already installed'))
     .catch(async () => {
-      core.info('Getting latest version')
       let version = (
         await (
           await fetch(
@@ -90,7 +89,6 @@ const installCli = async (): Promise<void> => {
       core.info('"op" not found, installing...')
       const url = await generateURL(version)
 
-      core.info(`Downloading "${url}"`)
       const op = await downloadTool(url)
 
       core.info(`Extracting ${op}`)
