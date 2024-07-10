@@ -2,10 +2,10 @@
 
 > Loads secrets into your GitHub runner from 1Password
 
-[![view on GitHub](https://badgen.net/github/license/KamaranL/1password-load-secrets-action)](https://github.com/KamaranL/1password-load-secrets-action/blob/HEAD/LICENSE.txt)
-[![view on GitHub](https://badgen.net/github/release/KamaranL/1password-load-secrets-action/stable)](https://github.com/KamaranL/1password-load-secrets-action)
+[![view on GitHub](https://badgen.net/github/license/KamaranL/1password-load-secrets-action?cache=3600)](https://github.com/KamaranL/1password-load-secrets-action/blob/HEAD/LICENSE.txt)
+[![view on GitHub](https://badgen.net/github/release/KamaranL/1password-load-secrets-action/stable?icon=github&label=latest&cache=3600)](https://github.com/KamaranL/1password-load-secrets-action)
 
-An improved-upon implementation of [Load secrets from 1Password](https://github.com/marketplace/actions/load-secrets-from-1password) by [1Password](https://github.com/1Password)
+A slightly better version of [Load secrets from 1Password](https://github.com/marketplace/actions/load-secrets-from-1password) by [1Password](https://github.com/1Password)
 
 Refer to [1Password's developer documentation](https://developer.1password.com/docs/ci-cd/github-actions/) for more on how you can use this action.
 
@@ -44,7 +44,6 @@ jobs:
 
       - run: op whoami
 ```
-
 
 ## Acknowledgements
 
